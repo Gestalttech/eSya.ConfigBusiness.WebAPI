@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "Hash": "83Q6hiFSkhQctj5uip3QQwbewedepsfT6PtgSsWVcvk=",
+  "Source": "eSya.ConfigBusiness.WebAPI",
+  "BasePath": "_content/eSya.ConfigBusiness.WebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "eSya.ConfigBusiness.WebAPI\\wwwroot",
+      "Source": "eSya.ConfigBusiness.WebAPI",
+      "ContentRoot": "D:\\Projects\\eSyaProjects2022\\eSya.ConfigBusiness.WebAPI\\eSya.ConfigBusiness.WebAPI\\eSya.ConfigBusiness.WebAPI\\wwwroot\\",
+      "BasePath": "_content/eSya.ConfigBusiness.WebAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "D:\\Projects\\eSyaProjects2022\\eSya.ConfigBusiness.WebAPI\\eSya.ConfigBusiness.WebAPI\\eSya.ConfigBusiness.WebAPI\\wwwroot\\Resources\\ar-EG.json",
+      "SourceId": "eSya.ConfigBusiness.WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\eSyaProjects2022\\eSya.ConfigBusiness.WebAPI\\eSya.ConfigBusiness.WebAPI\\eSya.ConfigBusiness.WebAPI\\wwwroot\\",
+      "BasePath": "_content/eSya.ConfigBusiness.WebAPI",
+      "RelativePath": "Resources/ar-EG.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Resources\\ar-EG.json"
+    },
+    {
+      "Identity": "D:\\Projects\\eSyaProjects2022\\eSya.ConfigBusiness.WebAPI\\eSya.ConfigBusiness.WebAPI\\eSya.ConfigBusiness.WebAPI\\wwwroot\\Resources\\en-US.json",
+      "SourceId": "eSya.ConfigBusiness.WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\eSyaProjects2022\\eSya.ConfigBusiness.WebAPI\\eSya.ConfigBusiness.WebAPI\\eSya.ConfigBusiness.WebAPI\\wwwroot\\",
+      "BasePath": "_content/eSya.ConfigBusiness.WebAPI",
+      "RelativePath": "Resources/en-US.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Resources\\en-US.json"
+    }
+  ]
+}
