@@ -17,3 +17,4 @@ D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DL\e
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DL\eSya.ConfigBusiness.DL\obj\Debug\net6.0\ref\eSya.ConfigBusiness.DL.dll
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DL\eSya.ConfigBusiness.DL\bin\Debug\net6.0\eSya.ConfigBusiness.DL.runtimeconfig.json
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DL\eSya.ConfigBusiness.DL\obj\Debug\net6.0\eSya.ConfigBusiness.DL.genruntimeconfig.cache
+D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DL\eSya.ConfigBusiness.DL\obj\Debug\net6.0\eSya.ConfigBusiness.DL.sourcelink.json

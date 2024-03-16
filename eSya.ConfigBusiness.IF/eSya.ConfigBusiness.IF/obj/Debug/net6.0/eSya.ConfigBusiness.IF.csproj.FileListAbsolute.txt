@@ -13,3 +13,4 @@ D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\e
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\refint\eSya.ConfigBusiness.IF.dll
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\eSya.ConfigBusiness.IF.pdb
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\ref\eSya.ConfigBusiness.IF.dll
+D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\eSya.ConfigBusiness.IF.sourcelink.json

@@ -9,7 +9,7 @@ namespace eSya.ConfigBusiness.IF
 {
     public interface ICalendarControlRepository
     {
-        Task<List<DO_BusinessCalendarLink>> GetCalendarHeaders();
+        Task<List<DO_BusinessCalendarLink>> GetCalendarHeaders(int businesskey);
         Task<DO_ReturnParameter> InsertBusinessKeyIntoCalendar(DO_BusinessCalendarLink obj);
     }
 }

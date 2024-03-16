@@ -20,7 +20,31 @@ namespace eSya.ConfigBusiness.DL.Repository
         }
 
         #region Process Rule by Business Location wise
+        public async Task<List<DO_ProcessMaster>> GetProcessMaster()
+        {
+            try
+            {
+                using (var db = new eSyaEnterprise())
+                {
+                    var ds = db.GtEcprrls
+                        .Select(r => new DO_ProcessMaster
+                        {
+                            ProcessId = r.ProcessId,
+                            ProcessDesc = r.ProcessDesc,
+                            IsSegmentSpecific = r.IsSegmentSpecific,
+                            SystemControl = r.SystemControl,
+                            ProcessControl = r.ProcessControl,
+                            ActiveStatus = r.ActiveStatus
+                        }).ToListAsync();
 
+                    return await ds;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public async Task<List<DO_ProcessRule>> GetProcessRulebySegmentwise()
         {
             try

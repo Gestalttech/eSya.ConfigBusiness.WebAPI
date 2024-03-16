@@ -19,7 +19,7 @@ namespace eSya.ConfigBusiness.DL.Repository
             _localizer = localizer;
         }
         #region Calendar Business Link
-        public async Task<List<DO_BusinessCalendarLink>> GetCalendarHeaders()
+        public async Task<List<DO_BusinessCalendarLink>> GetCalendarHeaders(int businesskey)
         {
             try
             {
@@ -32,6 +32,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                                  {
                                      CalenderType = c.CalenderType,
                                      Year = c.Year,
+                                     StartMonth=c.StartMonth,
                                      CalenderKey = c.CalenderKey,
                                      FromDate = c.FromDate,
                                      TillDate = c.TillDate,
@@ -42,7 +43,7 @@ namespace eSya.ConfigBusiness.DL.Repository
 
                     foreach (var link in result)
                     {
-                        var exists = db.GtEcblcls.Where(x => x.CalenderKey == link.CalenderKey).FirstOrDefault();
+                        var exists = db.GtEcblcls.Where(x => x.CalenderKey == link.CalenderKey && x.BusinessKey== businesskey).FirstOrDefault();
                         if (exists != null)
                         {
                             link.Alreadylinked = true;
@@ -54,6 +55,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         DO_BusinessCalendarLink model = new DO_BusinessCalendarLink()
                         {
                             CalenderType = link.CalenderType,
+                            StartMonth=link.StartMonth,
                             Year = link.Year,
                             CalenderKey = link.CalenderKey,
                             FromDate = link.FromDate,
@@ -103,7 +105,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         };
                         db.GtEcblcls.Add(calblink);
                         await db.SaveChangesAsync();
-
+                        dbContext.Commit();
                         return new DO_ReturnParameter() { Status = true, StatusCode = "S0002", Message = string.Format(_localizer[name: "S0002"]) };
 
                     }

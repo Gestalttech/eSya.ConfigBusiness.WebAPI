@@ -10,6 +10,7 @@ namespace eSya.ConfigBusiness.IF
     public interface IRulesRepository
     {
         #region Process Rule by Business Location wise
+        Task<List<DO_ProcessMaster>> GetProcessMaster();
         Task<List<DO_ProcessRule>> GetProcessRulebySegmentwise();
         Task<List<DO_ProcessRule>> GetProcessRulebyBusinessKey(int BusinessKey);
         Task<DO_ReturnParameter> InsertorUpdateProcessRulebySegment(DO_ProcessRulebySegment obj);

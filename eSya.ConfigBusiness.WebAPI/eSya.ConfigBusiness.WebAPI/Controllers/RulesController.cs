@@ -16,6 +16,13 @@ namespace eSya.ConfigBusiness.WebAPI.Controllers
             _rulesRepository = rulesRepository;
         }
         #region Process Rule by Business Location wise
+        
+             [HttpGet]
+        public async Task<IActionResult> GetProcessMaster()
+        {
+            var ds = await _rulesRepository.GetProcessMaster();
+            return Ok(ds);
+        }
         [HttpGet]
         public async Task<IActionResult> GetProcessRulebySegmentwise()
         {

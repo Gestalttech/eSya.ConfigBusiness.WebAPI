@@ -48,7 +48,7 @@ namespace eSya.ConfigBusiness.DL.Entities
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=103.227.97.123;Database=HCSEnterprise_Prod;user id=esya;password=Gt@pl#20;");
+                optionsBuilder.UseSqlServer(_connString);
             }
         }
 
@@ -240,7 +240,7 @@ namespace eSya.ConfigBusiness.DL.Entities
                 entity.ToTable("GT_ECBLCL");
 
                 entity.Property(e => e.CalenderKey)
-                    .HasMaxLength(6)
+                    .HasMaxLength(8)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
