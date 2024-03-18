@@ -399,6 +399,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                             TolocalCurrency = x.TolocalCurrency,
                             TocurrConversion = x.TocurrConversion,
                             TorealCurrency = x.TorealCurrency,
+                            Lstatus=x.Lstatus,
                             ActiveStatus = x.ActiveStatus
                         }).ToListAsync();
 
@@ -460,6 +461,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                             TolocalCurrency = obj.TolocalCurrency,
                             TocurrConversion = obj.TocurrConversion,
                             TorealCurrency = obj.TorealCurrency,
+                            Lstatus = false,
                             ActiveStatus = obj.ActiveStatus,
                             FormId = obj.FormId,
                             CreatedBy = obj.UserID,
