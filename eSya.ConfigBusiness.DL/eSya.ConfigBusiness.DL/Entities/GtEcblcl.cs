@@ -7,8 +7,6 @@ namespace eSya.ConfigBusiness.DL.Entities
     {
         public int BusinessKey { get; set; }
         public string CalenderKey { get; set; } = null!;
-        public DateTime FromDate { get; set; }
-        public DateTime TillDate { get; set; }
         public bool YearEndStatus { get; set; }
         public bool ActiveStatus { get; set; }
         public string FormId { get; set; } = null!;

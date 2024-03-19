@@ -6,10 +6,9 @@ namespace eSya.ConfigBusiness.DL.Entities
     public partial class GtDncnbc
     {
         public int BusinessKey { get; set; }
+        public string CalenderKey { get; set; } = null!;
         public int DocumentId { get; set; }
-        public DateTime EffectiveFrom { get; set; }
-        public string CalendarType { get; set; } = null!;
-        public DateTime? EffectiveTill { get; set; }
+        public string GeneNoYearOrMonth { get; set; } = null!;
         public bool ActiveStatus { get; set; }
         public string FormId { get; set; } = null!;
         public int CreatedBy { get; set; }

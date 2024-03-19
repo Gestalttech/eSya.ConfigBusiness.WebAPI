@@ -18,7 +18,53 @@ namespace eSya.ConfigBusiness.DL.Repository
         {
             _localizer = localizer;
         }
-        #region Business Calendar
+        #region Document Calendar Business Link
+
+        public async Task<List<DO_BusinessCalendar>> GetBusinesslinkedCalendarkeys(int businessKey)
+        {
+            try
+            {
+                using (eSyaEnterprise db = new eSyaEnterprise())
+                {
+
+                    var result =await db.GtEcblcls.Where(x => x.ActiveStatus && x.BusinessKey==businessKey)
+                        .Select(x => new DO_BusinessCalendar
+                        {
+                            CalenderKey=x.CalenderKey
+                        }).ToListAsync();
+                    var Distinctcals = result.GroupBy(x => x.CalenderKey).Select(y => y.First());
+                    return Distinctcals.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<DO_DocumentControl>> GetActiveDocuments()
+        {
+            try
+            {
+                using (eSyaEnterprise db = new eSyaEnterprise())
+                {
+
+                    var result = db.GtDccnsts.Where(x => x.ActiveStatus)
+                        .Select(x => new DO_DocumentControl
+                        {
+                            DocumentId = x.DocumentId,
+                            DocumentDesc=x.DocumentDesc
+                        }).ToListAsync();
+                    
+                    return await result;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<List<DO_BusinessCalendar>> GetBusinessCalendarBYBusinessKey(int businessKey)
         {
             try
@@ -26,37 +72,22 @@ namespace eSya.ConfigBusiness.DL.Repository
                 using (eSyaEnterprise db = new eSyaEnterprise())
                 {
 
-                    var defaultDate = DateTime.Now.Date;
-                    var result = await db.GtDccnsts.Where(x => x.ActiveStatus)
-                        .GroupJoin(db.GtDncnbcs.Where(w => w.BusinessKey == businessKey),
-                        d => d.DocumentId,
-                        bc => bc.DocumentId,
-                        (d, bc) => new { d, bc })
-                        .SelectMany(z => z.bc.DefaultIfEmpty(),
-                                 (a, b) => new DO_BusinessCalendar
+                    var result = await db.GtDncnbcs.Where(x => x.BusinessKey==businessKey)
+                        .Join(db.GtDccnsts,
+                        dl => dl.DocumentId,
+                        dm => dm.DocumentId,
+                        (dl, dm) => new { dl, dm })
+                        .Select(x => new DO_BusinessCalendar
                                  {
-                                     BusinessKey = businessKey,
-                                     DocumentId = a.d.DocumentId,
-                                     DocumentDesc = a.d.DocumentDesc,
-                                     CalendarType = b != null ? b.CalendarType : "",
-                                     EffectiveFrom = b != null ? b.EffectiveFrom : defaultDate,
-                                     ActiveStatus = b != null ? b.ActiveStatus : false,
+                                     BusinessKey =x.dl.BusinessKey,
+                                     CalenderKey=x.dl.CalenderKey,
+                                     DocumentId = x.dl.DocumentId,
+                                     GeneNoYearOrMonth=x.dl.GeneNoYearOrMonth,
+                                     DocumentDesc = x.dm.DocumentDesc,
+                                     ActiveStatus = x.dl.ActiveStatus,
 
                                  }
                         ).ToListAsync();
-
-                    foreach (var dc in result)
-                    {
-                        if (dc.CalendarType != null)
-                        {
-                            dc.CalendarTypeDesc = (dc.CalendarType == "CY") ? "Calendar Year" : (dc.CalendarType == "FY") ? "Financial Year" :
-                                 (dc.CalendarType == "NA") ? "Not Applicable" : "";
-                        }
-                        else
-                        {
-                            dc.CalendarTypeDesc = string.Empty;
-                        }
-                    }
                     return result;
                 }
             }
@@ -75,70 +106,42 @@ namespace eSya.ConfigBusiness.DL.Repository
                     try
                     {
 
-                        var bcExist = db.GtDncnbcs.Where(w => w.DocumentId == obj.DocumentId && w.BusinessKey == obj.BusinessKey && w.EffectiveTill == null).FirstOrDefault();
+                        var bcExist = db.GtDncnbcs.Where(w => w.DocumentId == obj.DocumentId && w.BusinessKey == obj.BusinessKey && w.CalenderKey.ToUpper().Replace(" ", "") == obj.CalenderKey.ToUpper().Replace(" ", "")).FirstOrDefault();
                         if (bcExist != null)
                         {
-                            if (obj.EffectiveFrom != bcExist.EffectiveFrom)
-                            {
-                                if (obj.EffectiveFrom < bcExist.EffectiveFrom)
-                                {
-                                    return new DO_ReturnParameter() { Status = false, StatusCode = "W0183", Message = string.Format(_localizer[name: "W0183"]) };
-                                }
-                                bcExist.EffectiveTill = obj.EffectiveFrom.AddDays(-1);
-                                bcExist.ModifiedBy = obj.UserID;
-                                bcExist.ModifiedOn = DateTime.Now;
-                                bcExist.ModifiedTerminal = obj.TerminalID;
-                                bcExist.ActiveStatus = false;
 
-                                var bc = new GtDncnbc
-                                {
-                                    BusinessKey = obj.BusinessKey,
-                                    DocumentId = obj.DocumentId,
-                                    CalendarType = obj.CalendarType,
-                                    EffectiveFrom = obj.EffectiveFrom,
-                                    ActiveStatus = obj.ActiveStatus,
-                                    FormId = obj.FormID,
-                                    CreatedBy = obj.UserID,
-                                    CreatedOn = DateTime.Now,
-                                    CreatedTerminal = obj.TerminalID
-                                };
-                                db.GtDncnbcs.Add(bc);
-
-
-                            }
-                            else
-                            {
-                                bcExist.CalendarType = obj.CalendarType;
-                                bcExist.ActiveStatus = obj.ActiveStatus;
-                                bcExist.ModifiedBy = obj.UserID;
-                                bcExist.ModifiedOn = DateTime.Now;
-                                bcExist.ModifiedTerminal = obj.TerminalID;
-                            }
-
+                            bcExist.BusinessKey = obj.BusinessKey;
+                            bcExist.CalenderKey = obj.CalenderKey;
+                            bcExist.DocumentId = obj.DocumentId;
+                            bcExist.GeneNoYearOrMonth = obj.GeneNoYearOrMonth;
+                            bcExist.ActiveStatus = obj.ActiveStatus;
+                            bcExist.ModifiedBy = obj.UserID;
+                            bcExist.ModifiedOn = DateTime.Now;
+                            bcExist.ModifiedTerminal = obj.TerminalID;
+                            await db.SaveChangesAsync();
+                            dbContext.Commit();
+                            return new DO_ReturnParameter() { Status = true, StatusCode = "S0002", Message = string.Format(_localizer[name: "S0002"]) };
                         }
                         else
                         {
-                            if (!string.IsNullOrEmpty(obj.CalendarType))
-                            {
-                                var bcal = new GtDncnbc
-                                {
-                                    BusinessKey = obj.BusinessKey,
-                                    DocumentId = obj.DocumentId,
-                                    CalendarType = obj.CalendarType,
-                                    EffectiveFrom = obj.EffectiveFrom,
-                                    ActiveStatus = obj.ActiveStatus,
-                                    FormId = obj.FormID,
-                                    CreatedBy = obj.UserID,
-                                    CreatedOn = DateTime.Now,
-                                    CreatedTerminal = obj.TerminalID
-                                };
-                                db.GtDncnbcs.Add(bcal);
-                            }
 
+                            var bc = new GtDncnbc
+                            {
+                                BusinessKey = obj.BusinessKey,
+                                CalenderKey = obj.CalenderKey,
+                                DocumentId = obj.DocumentId,
+                                GeneNoYearOrMonth = obj.GeneNoYearOrMonth,
+                                ActiveStatus = obj.ActiveStatus,
+                                FormId = obj.FormID,
+                                CreatedBy = obj.UserID,
+                                CreatedOn = DateTime.Now,
+                                CreatedTerminal = obj.TerminalID
+                            };
+                            db.GtDncnbcs.Add(bc);
+                            await db.SaveChangesAsync();
+                            dbContext.Commit();
+                            return new DO_ReturnParameter() { Status = true, StatusCode = "S0001", Message = string.Format(_localizer[name: "S0001"]) };
                         }
-                        await db.SaveChangesAsync();
-                        dbContext.Commit();
-                        return new DO_ReturnParameter() { Status = true, StatusCode = "S0001", Message = string.Format(_localizer[name: "S0001"]) };
 
                     }
                     catch (DbUpdateException ex)

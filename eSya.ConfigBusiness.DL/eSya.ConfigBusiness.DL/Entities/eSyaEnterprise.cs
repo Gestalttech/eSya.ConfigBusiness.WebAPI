@@ -8,7 +8,6 @@ namespace eSya.ConfigBusiness.DL.Entities
     public partial class eSyaEnterprise : DbContext
     {
         public static string _connString = "";
-
         public eSyaEnterprise()
         {
         }
@@ -118,29 +117,30 @@ namespace eSya.ConfigBusiness.DL.Entities
 
             modelBuilder.Entity<GtDncnbc>(entity =>
             {
-                entity.HasKey(e => new { e.BusinessKey, e.DocumentId, e.EffectiveFrom });
+                entity.HasKey(e => new { e.BusinessKey, e.CalenderKey, e.DocumentId })
+                    .HasName("PK_GT_DNCNBC_1");
 
                 entity.ToTable("GT_DNCNBC");
 
+                entity.Property(e => e.CalenderKey)
+                    .HasMaxLength(8)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.DocumentId).HasColumnName("DocumentID");
-
-                entity.Property(e => e.EffectiveFrom).HasColumnType("datetime");
-
-                entity.Property(e => e.CalendarType)
-                    .HasMaxLength(2)
-                    .IsUnicode(false)
-                    .IsFixedLength();
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.CreatedTerminal).HasMaxLength(50);
 
-                entity.Property(e => e.EffectiveTill).HasColumnType("datetime");
-
                 entity.Property(e => e.FormId)
                     .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("FormID");
+
+                entity.Property(e => e.GeneNoYearOrMonth)
+                    .HasMaxLength(1)
+                    .IsUnicode(false)
+                    .IsFixedLength();
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
@@ -252,13 +252,9 @@ namespace eSya.ConfigBusiness.DL.Entities
                     .IsUnicode(false)
                     .HasColumnName("FormID");
 
-                entity.Property(e => e.FromDate).HasColumnType("datetime");
-
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedTerminal).HasMaxLength(50);
-
-                entity.Property(e => e.TillDate).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<GtEcblpl>(entity =>

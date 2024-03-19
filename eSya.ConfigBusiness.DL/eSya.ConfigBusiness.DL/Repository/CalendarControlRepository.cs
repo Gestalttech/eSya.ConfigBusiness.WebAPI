@@ -31,14 +31,11 @@ namespace eSya.ConfigBusiness.DL.Repository
                                  .Select(c => new DO_BusinessCalendarLink
                                  {
                                      CalenderType = c.CalenderType,
-                                     Year = c.Year,
                                      StartMonth=c.StartMonth,
                                      CalenderKey = c.CalenderKey,
-                                     FromDate = c.FromDate,
-                                     TillDate = c.TillDate,
                                      YearEndStatus = c.YearEndStatus,
                                      ActiveStatus = c.ActiveStatus
-                                 }).OrderByDescending(x => x.Year).ToListAsync();
+                                 }).ToListAsync();
                     List<DO_BusinessCalendarLink> lstheader = new List<DO_BusinessCalendarLink>();
 
                     foreach (var link in result)
@@ -56,10 +53,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         {
                             CalenderType = link.CalenderType,
                             StartMonth=link.StartMonth,
-                            Year = link.Year,
                             CalenderKey = link.CalenderKey,
-                            FromDate = link.FromDate,
-                            TillDate = link.TillDate,
                             YearEndStatus = link.YearEndStatus,
                             ActiveStatus = link.ActiveStatus,
                             Alreadylinked = link.Alreadylinked
@@ -94,8 +88,6 @@ namespace eSya.ConfigBusiness.DL.Repository
                         {
                             BusinessKey = obj.BusinessKey,
                             CalenderKey = obj.CalenderKey,
-                            FromDate = obj.FromDate,
-                            TillDate = obj.TillDate,
                             YearEndStatus = obj.YearEndStatus,
                             ActiveStatus = obj.ActiveStatus,
                             FormId = obj.FormID,

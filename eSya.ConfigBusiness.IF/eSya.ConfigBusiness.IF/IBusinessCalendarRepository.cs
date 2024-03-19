@@ -9,8 +9,13 @@ namespace eSya.ConfigBusiness.IF
 {
     public interface IBusinessCalendarRepository
     {
-        #region Business Calendar
+        #region Document Calendar Business Link
+        Task<List<DO_BusinessCalendar>> GetBusinesslinkedCalendarkeys(int businessKey);
+
+        Task<List<DO_DocumentControl>> GetActiveDocuments();
+
         Task<List<DO_BusinessCalendar>> GetBusinessCalendarBYBusinessKey(int businessKey);
+
         Task<DO_ReturnParameter> InsertOrUpdateBusinessCalendar(DO_BusinessCalendar obj);
         #endregion
     }

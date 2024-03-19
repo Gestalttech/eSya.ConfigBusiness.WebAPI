@@ -15,7 +15,19 @@ namespace eSya.ConfigBusiness.WebAPI.Controllers
         {
             _businessCalendarRepository = businessCalendarRepository;
         }
-        #region Business Calendar
+        #region Document Calendar Business Link
+        [HttpGet]
+        public async Task<IActionResult> GetBusinesslinkedCalendarkeys(int businessKey)
+        {
+            var ds = await _businessCalendarRepository.GetBusinesslinkedCalendarkeys(businessKey);
+            return Ok(ds);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetActiveDocuments()
+        {
+            var ds = await _businessCalendarRepository.GetActiveDocuments();
+            return Ok(ds);
+        }
         [HttpGet]
         public async Task<IActionResult> GetBusinessCalendarBYBusinessKey(int businessKey)
         {
