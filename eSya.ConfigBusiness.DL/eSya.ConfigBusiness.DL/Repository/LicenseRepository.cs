@@ -85,7 +85,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         GtEcbsen is_EntityDescExists = db.GtEcbsens.FirstOrDefault(u => u.BusinessDesc.ToUpper().Replace(" ", "") == obj.BusinessDesc.ToUpper().Replace(" ", ""));
                         if (is_EntityDescExists != null)
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0022", Message = string.Format(_localizer[name: "W0022"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0062", Message = string.Format(_localizer[name: "W0062"]) };
                         }
 
                         int _businessID = db.GtEcbsens.Select(c => c.BusinessId).DefaultIfEmpty().Max();
@@ -169,7 +169,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         GtEcbsen is_EntityExists = db.GtEcbsens.FirstOrDefault(be => be.BusinessDesc.ToUpper().Replace(" ", "") == obj.BusinessDesc.ToUpper().Replace(" ", "") && be.BusinessId != obj.BusinessId);
                         if (is_EntityExists != null)
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0022", Message = string.Format(_localizer[name: "W0022"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0062", Message = string.Format(_localizer[name: "W0062"]) };
 
                         }
 
@@ -229,7 +229,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         }
                         else
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0023", Message = string.Format(_localizer[name: "W0023"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0063", Message = string.Format(_localizer[name: "W0063"]) };
 
                         }
                     }
@@ -258,12 +258,12 @@ namespace eSya.ConfigBusiness.DL.Repository
                         GtEcbsen bu_en = db.GtEcbsens.Where(w => w.BusinessId == BusinessEntityId).FirstOrDefault();
                         if (bu_en == null)
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0023", Message = string.Format(_localizer[name: "W0023"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0063", Message = string.Format(_localizer[name: "W0063"]) };
                         }
 
                         if (bu_en.UsageStatus == true)
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0024", Message = string.Format(_localizer[name: "W0024"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0064", Message = string.Format(_localizer[name: "W0064"]) };
 
                         }
 
@@ -429,7 +429,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         GtEcbsln exists = db.GtEcbslns.Where(x => x.BusinessId == obj.BusinessId && x.LocationId == obj.LocationId).FirstOrDefault();
                         if (exists != null)
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0028", Message = string.Format(_localizer[name: "W0028"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0065", Message = string.Format(_localizer[name: "W0065"]) };
                         }
 
 
@@ -438,14 +438,14 @@ namespace eSya.ConfigBusiness.DL.Repository
 
                         if (is_locDescExists != null)
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0029", Message = string.Format(_localizer[name: "W0029"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0066", Message = string.Format(_localizer[name: "W0066"]) };
 
                         }
                         int Business_Key = Convert.ToInt32(obj.BusinessId.ToString() + obj.LocationId.ToString());
                         var is_BusinessKeyExist = db.GtEcbslns.Where(x => x.ActiveStatus == true && x.BusinessKey == Business_Key).FirstOrDefault();
                         if (is_BusinessKeyExist != null)
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0030", Message = string.Format(_localizer[name: "W0030"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0067", Message = string.Format(_localizer[name: "W0067"]) };
                         }
                         var b_Location = new GtEcbsln
                         {
@@ -642,7 +642,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         l.BusinessId == obj.BusinessId && l.LocationId != obj.LocationId);
                         if (is_locDescExists != null)
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0029", Message = string.Format(_localizer[name: "W0029"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0066", Message = string.Format(_localizer[name: "W0066"]) };
                         }
 
                         GtEcbsln b_loc = db.GtEcbslns.Where(bl => bl.BusinessId == obj.BusinessId && bl.LocationId == obj.LocationId).FirstOrDefault();
@@ -667,7 +667,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         }
                         else
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0031", Message = string.Format(_localizer[name: "W0031"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0068", Message = string.Format(_localizer[name: "W0068"]) };
                         }
                         #endregion Location Master
 
@@ -817,7 +817,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         GtEcbsln b_loc = db.GtEcbslns.Where(bl => bl.BusinessId == BusinessId && bl.LocationId == locationId).FirstOrDefault();
                         if (b_loc == null)
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0031", Message = string.Format(_localizer[name: "W0031"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0068", Message = string.Format(_localizer[name: "W0068"]) };
                         }
 
                         b_loc.ActiveStatus = status;

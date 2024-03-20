@@ -82,7 +82,7 @@ namespace eSya.ConfigBusiness.DL.Repository
                         var cblink = db.GtEcblcls.Where(x => x.BusinessKey == obj.BusinessKey && x.CalenderKey.ToUpper().Replace(" ", "") == obj.CalenderKey.ToUpper().Replace(" ", "")).FirstOrDefault();
                         if (cblink != null)
                         {
-                            return new DO_ReturnParameter() { Status = false, StatusCode = "W00168", Message = string.Format(_localizer[name: "W00168"]) };
+                            return new DO_ReturnParameter() { Status = false, StatusCode = "W0061", Message = string.Format(_localizer[name: "W0061"]) };
                         }
                         GtEcblcl calblink = new GtEcblcl()
                         {
