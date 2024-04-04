@@ -47,7 +47,6 @@ builder.Services.AddLocalization();
 
 
 //localization
-builder.Services.AddScoped<IBusinessCalendarRepository, BusinessCalendarRepository>();
 builder.Services.AddScoped<ICalendarControlRepository, CalendarControlRepository>();
 builder.Services.AddScoped<ILicenseRepository, LicenseRepository>();
 builder.Services.AddScoped<IRulesRepository, RulesRepository>();
