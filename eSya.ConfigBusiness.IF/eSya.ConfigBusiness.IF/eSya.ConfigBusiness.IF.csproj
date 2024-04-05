@@ -9,6 +9,7 @@
   <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="IBusinessCalendarRepository.cs" />
+    <Compile Remove="ICalendarControlRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

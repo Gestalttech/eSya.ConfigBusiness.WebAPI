@@ -8,9 +8,9 @@ D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\e
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\eSya.ConfigBusiness.IF.AssemblyInfoInputs.cache
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\eSya.ConfigBusiness.IF.AssemblyInfo.cs
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\eSya.ConfigBusiness.IF.csproj.CoreCompileInputs.cache
+D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\eSya.ConfigBusiness.IF.sourcelink.json
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\eSya.ConfigBusiness.IF.csproj.CopyComplete
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\eSya.ConfigBusiness.IF.dll
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\refint\eSya.ConfigBusiness.IF.dll
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\eSya.ConfigBusiness.IF.pdb
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\ref\eSya.ConfigBusiness.IF.dll
-D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.IF\eSya.ConfigBusiness.IF\obj\Debug\net6.0\eSya.ConfigBusiness.IF.sourcelink.json

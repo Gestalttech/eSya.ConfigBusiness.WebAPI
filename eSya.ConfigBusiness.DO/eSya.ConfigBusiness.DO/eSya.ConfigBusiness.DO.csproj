@@ -9,6 +9,7 @@
   <ItemGroup>
     <Compile Remove="Class1.cs" />
     <Compile Remove="DO_BusinessCalendar.cs" />
+    <Compile Remove="DO_BusinessCalendarLink.cs" />
   </ItemGroup>
 
 </Project>

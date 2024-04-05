@@ -5,8 +5,8 @@ D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DO\e
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DO\eSya.ConfigBusiness.DO\obj\Debug\net6.0\eSya.ConfigBusiness.DO.AssemblyInfoInputs.cache
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DO\eSya.ConfigBusiness.DO\obj\Debug\net6.0\eSya.ConfigBusiness.DO.AssemblyInfo.cs
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DO\eSya.ConfigBusiness.DO\obj\Debug\net6.0\eSya.ConfigBusiness.DO.csproj.CoreCompileInputs.cache
+D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DO\eSya.ConfigBusiness.DO\obj\Debug\net6.0\eSya.ConfigBusiness.DO.sourcelink.json
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DO\eSya.ConfigBusiness.DO\obj\Debug\net6.0\eSya.ConfigBusiness.DO.dll
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DO\eSya.ConfigBusiness.DO\obj\Debug\net6.0\refint\eSya.ConfigBusiness.DO.dll
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DO\eSya.ConfigBusiness.DO\obj\Debug\net6.0\eSya.ConfigBusiness.DO.pdb
 D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DO\eSya.ConfigBusiness.DO\obj\Debug\net6.0\ref\eSya.ConfigBusiness.DO.dll
-D:\Projects\eSyaProjects2022\eSya.ConfigBusiness.WebAPI\eSya.ConfigBusiness.DO\eSya.ConfigBusiness.DO\obj\Debug\net6.0\eSya.ConfigBusiness.DO.sourcelink.json
