@@ -28,6 +28,7 @@ namespace eSya.ConfigBusiness.DL.Entities
         public virtual DbSet<GtEcbsln> GtEcbslns { get; set; } = null!;
         public virtual DbSet<GtEcbsmn> GtEcbsmns { get; set; } = null!;
         public virtual DbSet<GtEcbspl> GtEcbspls { get; set; } = null!;
+        public virtual DbSet<GtEcbspm> GtEcbspms { get; set; } = null!;
         public virtual DbSet<GtEcbssc> GtEcbsscs { get; set; } = null!;
         public virtual DbSet<GtEcbstx> GtEcbstxes { get; set; } = null!;
         public virtual DbSet<GtEccncd> GtEccncds { get; set; } = null!;
@@ -327,6 +328,28 @@ namespace eSya.ConfigBusiness.DL.Entities
                 entity.Property(e => e.Pldesc)
                     .HasMaxLength(50)
                     .HasColumnName("PLDesc");
+            });
+
+            modelBuilder.Entity<GtEcbspm>(entity =>
+            {
+                entity.HasKey(e => new { e.BusinessKey, e.Isdcode, e.PaymentMethod, e.InstrumentType });
+
+                entity.ToTable("GT_ECBSPM");
+
+                entity.Property(e => e.Isdcode).HasColumnName("ISDCode");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.CreatedTerminal).HasMaxLength(50);
+
+                entity.Property(e => e.FormId)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("FormID");
+
+                entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifiedTerminal).HasMaxLength(50);
             });
 
             modelBuilder.Entity<GtEcbssc>(entity =>
