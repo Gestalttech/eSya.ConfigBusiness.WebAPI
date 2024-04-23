@@ -1290,6 +1290,127 @@ namespace eSya.ConfigBusiness.DL.Repository
 
         #endregion
 
+        #region Payment Method Business Link
+        public async Task<List<DO_PaymentMethodBusinessLink>> GetPaymentMethodInterfacebyISDCode(int ISDCode,int BusinessKey)
+        {
+            try
+            {
+                using (var db = new eSyaEnterprise())
+                {
+                    var ds = await db.GtEccnpms.Where(x => x.Isdcode == ISDCode && x.ActiveStatus)
+                       .Join(db.GtEcapcds,
+                       a => a.PaymentMethod,
+                       p => p.ApplicationCode,
+                       (a, p) => new { a, p })
+                      .Join(db.GtEcapcds,
+                      aa => aa.a.InstrumentType,
+                      I => I.ApplicationCode,
+                      (aa, I) => new { aa, I })
+                     .Select(r => new DO_PaymentMethodBusinessLink
+                     {
+                         Isdcode = r.aa.a.Isdcode,
+                         PaymentMethod = r.aa.a.PaymentMethod,
+                         InstrumentType = r.aa.a.InstrumentType,
+                         PaymentMethodDesc = r.aa.p.CodeDesc,
+                         InstrumentTypeDesc = r.I.CodeDesc,
+                         //ActiveStatus = r.aa.a.ActiveStatus,
+                         InterfaceReqd=false,
+                         ActiveStatus=false,
+                         BusinessKey=BusinessKey,
+                     }).ToListAsync();
+
+                    foreach (var obj in ds)
+                    {
+                        GtEcbspm blink = db.GtEcbspms.Where(x => x.BusinessKey == BusinessKey && x.Isdcode == ISDCode && x.PaymentMethod==obj.PaymentMethod
+                        && x.InstrumentType==obj.InstrumentType).FirstOrDefault();
+                        if (blink != null)
+                        {
+                            obj.InterfaceReqd = blink.InterfaceReqd;
+                            obj.ActiveStatus = blink.ActiveStatus;
+                        }
+                        else
+                        {
+                            obj.InterfaceReqd = false;
+                            obj.ActiveStatus = false;
+                        }
+                    }
+
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<DO_ReturnParameter> InsertOrUpdatePaymentMethodInterfaceBusinessLink(List<DO_PaymentMethodBusinessLink> obj)
+        {
+            using (eSyaEnterprise db = new eSyaEnterprise())
+            {
+                using (var dbContext = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        //foreach (var p in obj)
+                        //{
+                        //    var payExists = db.GtEcbspms.Where(w => w.BusinessKey == p.BusinessKey && w.Isdcode == p.Isdcode && w.PaymentMethod==p.PaymentMethod && w.InstrumentType==p.InstrumentType).FirstOrDefault();
+                        //    if (payExists != null)
+                        //    {
+                        //        db.GtEcbspms.Remove(payExists);
+                        //        await db.SaveChangesAsync();
+                        //    }
+                        //}
+                        foreach (var p in obj)
+                        {
+                            if (p.InterfaceReqd == true && p.ActiveStatus == false)
+                            {
+                                return new DO_ReturnParameter() { Status = false, StatusCode = "W0114", Message = string.Format(_localizer[name: "W0114"]) };
+                            }
+                        }
+                        foreach (var _pl in obj)
+                        {
+                            var payExists = db.GtEcbspms.Where(w => w.BusinessKey == _pl.BusinessKey && w.Isdcode == _pl.Isdcode && w.PaymentMethod == _pl.PaymentMethod && w.InstrumentType == _pl.InstrumentType).FirstOrDefault();
+                            if (payExists != null)
+                            {
+                                payExists.ActiveStatus = _pl.ActiveStatus;
+                                payExists.InterfaceReqd = _pl.InterfaceReqd;
+                                payExists.ModifiedBy = _pl.UserID;
+                                payExists.ModifiedOn = System.DateTime.Now;
+                                payExists.ModifiedTerminal = _pl.TerminalID;
+                            }
+                            else
+                            {
+                                var plink = new GtEcbspm
+                                {
+                                    BusinessKey = _pl.BusinessKey,
+                                    Isdcode = _pl.Isdcode,
+                                    PaymentMethod = _pl.PaymentMethod,
+                                    InstrumentType = _pl.InstrumentType,
+                                    InterfaceReqd = _pl.InterfaceReqd,
+                                    ActiveStatus = _pl.ActiveStatus,
+                                    FormId = _pl.FormID,
+                                    CreatedBy = _pl.UserID,
+                                    CreatedOn = System.DateTime.Now,
+                                    CreatedTerminal = _pl.TerminalID
+                                };
+                                db.GtEcbspms.Add(plink);
+                            }
+                        }
+                        await db.SaveChangesAsync();
+                        dbContext.Commit();
+                        return new DO_ReturnParameter() { Status = true, StatusCode = "S0001", Message = string.Format(_localizer[name: "S0001"]) };
+
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContext.Rollback();
+                        return new DO_ReturnParameter() { Status = false, Message = ex.Message };
+                    }
+                }
+            }
+        }
+
+        #endregion
         #region Define Menu Link to Location
         public async Task<DO_ConfigureMenu> GetLocationMenuLinkbyBusinessKey(int businesskey)
         {

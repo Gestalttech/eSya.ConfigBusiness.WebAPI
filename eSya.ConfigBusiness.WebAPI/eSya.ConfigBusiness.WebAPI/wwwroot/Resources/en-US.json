@@ -7,8 +7,8 @@
   "W0066": "Business Location Description already Exist for selected Entity",
   "W0067": "Business Key already Exist for selected Entity",
   "W0068": "Business Location not found",
+  "W0114": "Interface Required and Active Status should be true",
 
-  
   "S0001": "Saved Sucessfully",
   "S0002": "Updated Sucessfully",
   "S0003": "Activated Successfully",

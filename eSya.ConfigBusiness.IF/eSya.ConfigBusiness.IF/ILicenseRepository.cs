@@ -61,7 +61,10 @@ namespace eSya.ConfigBusiness.IF
 
 
         #endregion
-
+        #region Payment Method Business Link
+        Task<List<DO_PaymentMethodBusinessLink>> GetPaymentMethodInterfacebyISDCode(int ISDCode, int BusinessKey);
+        Task<DO_ReturnParameter> InsertOrUpdatePaymentMethodInterfaceBusinessLink(List<DO_PaymentMethodBusinessLink> obj);
+        #endregion
         #region Define Menu Link to Location
         Task<DO_ConfigureMenu> GetLocationMenuLinkbyBusinessKey(int businesskey);
         Task<DO_ReturnParameter> InsertOrUpdateLocationMenuLink(List<DO_LocationMenuLink> obj);

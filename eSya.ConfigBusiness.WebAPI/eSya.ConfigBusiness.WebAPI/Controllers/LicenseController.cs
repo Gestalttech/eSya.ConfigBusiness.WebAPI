@@ -304,6 +304,30 @@ namespace eSya.ConfigBusiness.WebAPI.Controllers
         }
         #endregion
 
+        #region Payment Method Business Link
+        /// <summary>
+        /// Getting  Payment Method Interface.
+        /// UI Reffered - Payment Method Interface Tab
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> GetPaymentMethodInterfacebyISDCode(int ISDCode, int BusinessKey)
+        {
+            var payments = await _licenseRepository.GetPaymentMethodInterfacebyISDCode(ISDCode, BusinessKey);
+            return Ok(payments);
+
+        }
+        /// <summary>
+        /// Insert Or Update  Payment Method Interface Required
+        /// UI Reffered -Payment Method Interface Tab
+        /// </summary>
+        [HttpPost]
+        public async Task<IActionResult> InsertOrUpdatePaymentMethodInterfaceBusinessLink(List<DO_PaymentMethodBusinessLink> obj)
+        {
+            var msg = await _licenseRepository.InsertOrUpdatePaymentMethodInterfaceBusinessLink(obj);
+            return Ok(msg);
+        }
+        #endregion
+
         #region Define Menu Link to Location
         /// <summary>
         /// Getting  All Menu .
