@@ -1438,31 +1438,49 @@ namespace eSya.ConfigBusiness.DL.Repository
                                         ParentID = s.ParentId,
                                         ActiveStatus = s.ActiveStatus
                                     }).ToListAsync();
-
                     mn.l_FormMenu = await db.GtEcmnfls.Where(x => x.ActiveStatus)
-                                    .Select(f => new DO_FormMenu()
-                                    {
-                                        MainMenuId = f.MainMenuId,
-                                        MenuItemId = f.MenuItemId,
-                                        //FormId = f.FormId,
-                                        FormId = f.MenuKey,
-                                        FormNameClient = f.FormNameClient,
-                                        FormIndex = f.FormIndex,
-                                        ActiveStatus = f.ActiveStatus,
 
-                                    }).ToListAsync();
-                    foreach (var obj in mn.l_FormMenu)
-                    {
-                        GtEcbsmn menulink = db.GtEcbsmns.Where(c => c.BusinessKey == businesskey && c.MenuKey == obj.FormId).FirstOrDefault();
-                        if (menulink != null)
-                        {
-                            obj.ActiveStatus = menulink.ActiveStatus;
-                        }
-                        else
-                        {
-                            obj.ActiveStatus = false;
-                        }
-                    }
+                   .GroupJoin(db.GtEcbsmns.Where(x => x.BusinessKey == businesskey),
+                    m => new { m.MenuKey },
+                    fm => new { fm.MenuKey },
+                    (m, fm) => new { m, fm })
+                    .SelectMany(z => z.fm.DefaultIfEmpty(),
+
+                     (a, b) => new DO_FormMenu()
+                     {
+                       MainMenuId = a.m.MainMenuId,
+                        MenuItemId = a.m.MenuItemId,
+                        FormId = a.m.MenuKey,
+                        FormNameClient = a.m.FormNameClient,
+                       FormIndex = a.m.FormIndex,
+                       ActiveStatus = b == null ? false : b.ActiveStatus
+
+                     }).ToListAsync();
+
+                    //mn.l_FormMenu = await db.GtEcmnfls.Where(x => x.ActiveStatus)
+                    //                .Select(f => new DO_FormMenu()
+                    //                {
+                    //                    MainMenuId = f.MainMenuId,
+                    //                    MenuItemId = f.MenuItemId,
+                    //                    //FormId = f.FormId,
+                    //                    FormId = f.MenuKey,
+                    //                    FormNameClient = f.FormNameClient,
+                    //                    FormIndex = f.FormIndex,
+                    //                    ActiveStatus = f.ActiveStatus,
+
+                    //                }).ToListAsync();
+                    //foreach (var obj in mn.l_FormMenu)
+                    //{
+                    //    GtEcbsmn menulink = db.GtEcbsmns.Where(c => c.BusinessKey == businesskey && c.MenuKey == obj.FormId).FirstOrDefault();
+                    //    if (menulink != null)
+                    //    {
+                    //        obj.ActiveStatus = menulink.ActiveStatus;
+                    //    }
+                    //    else
+                    //    {
+                    //        obj.ActiveStatus = false;
+                    //    }
+                    //}
                     return mn;
 
                 }
