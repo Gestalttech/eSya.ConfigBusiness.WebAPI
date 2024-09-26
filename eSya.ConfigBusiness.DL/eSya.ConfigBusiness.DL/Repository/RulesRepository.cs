@@ -234,19 +234,71 @@ namespace eSya.ConfigBusiness.DL.Repository
                          ActiveStatus = f.ActiveStatus
                      }).ToListAsync();
 
-
+                    
                     foreach (var _link in ds)
                     {
-                        GtEcaprb _lexista = db.GtEcaprbs.Where(c => c.BusinessKey == _link.BusinessKey && c.ProcessId == processID && c.RuleId == ruleID).FirstOrDefault();
-                        if (_lexista != null)
-                        {
-                            _link.ActiveStatus = _lexista.ActiveStatus;
 
-                        }
-                        else
-                        {
-                            _link.ActiveStatus = false;
-                        }
+                        GtEcaprb _lexista = db.GtEcaprbs
+                            .FirstOrDefault(c => c.BusinessKey == _link.BusinessKey && c.ProcessId == processID && c.RuleId == ruleID);
+
+                        // Fetching all related 
+                        var integrations = db.GtEcpabls
+                            .Where(c => c.BusinessKey == _link.BusinessKey &&
+                                       (c.ParameterId == 2 || c.ParameterId == 5 || c.ParameterId == 3) &&
+                                        c.ParmAction)
+                            .ToList();
+
+                        // Set ActiveStatus
+                        _link.ActiveStatus = _lexista?.ActiveStatus ?? false;
+
+                        // Set SMSIntegration, EmailIntegration, SecurityQuestionIntegration based on ParameterId
+                        _link.SMSIntegration = integrations.Any(i => i.ParameterId == 2);
+                        _link.EmailIntegration = integrations.Any(i => i.ParameterId == 5);
+                        _link.SecurityQuestionIntegration = integrations.Any(i => i.ParameterId == 3);
+
+                        #region comment
+
+                        //GtEcaprb _lexista = db.GtEcaprbs.Where(c => c.BusinessKey == _link.BusinessKey && c.ProcessId == processID && c.RuleId == ruleID).FirstOrDefault();
+                        //GtEcpabl _sms= db.GtEcpabls.Where(c => c.BusinessKey == _link.BusinessKey && c.ParameterId == 2 && c.ParmAction).FirstOrDefault();
+                        //GtEcpabl _email = db.GtEcpabls.Where(c => c.BusinessKey == _link.BusinessKey && c.ParameterId == 5 && c.ParmAction).FirstOrDefault();
+                        //GtEcpabl _question = db.GtEcpabls.Where(c => c.BusinessKey == _link.BusinessKey && c.ParameterId == 3 && c.ParmAction).FirstOrDefault();
+
+                        //if (_lexista != null)
+                        //{
+                        //    _link.ActiveStatus = _lexista.ActiveStatus;
+
+
+                        //}
+                        //else
+                        //{
+                        //    _link.ActiveStatus = false;
+                        //}
+                        //if (_sms != null)
+                        //{
+                        //    _link.SMSIntegration = true;
+                        //}
+                        //else
+                        //{
+                        //    _link.SMSIntegration = false;
+                        //}
+                        //if (_email != null)
+                        //{
+                        //    _link.EmailIntegration = true;
+                        //}
+                        //else
+                        //{
+                        //    _link.EmailIntegration = false;
+                        //}
+                        //if (_question != null)
+                        //{
+                        //    _link.SecurityQuestionIntegration = true;
+                        //}
+                        //else
+                        //{
+                        //    _link.SecurityQuestionIntegration = false;
+                        //}
+
+                        #endregion
                     }
 
                     return ds;
