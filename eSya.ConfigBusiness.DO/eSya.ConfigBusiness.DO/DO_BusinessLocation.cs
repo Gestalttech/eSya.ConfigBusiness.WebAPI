@@ -17,9 +17,9 @@ namespace eSya.ConfigBusiness.DO
         public int Isdcode { get; set; }
         public int CityCode { get; set; }
         public string CurrencyCode { get; set; } = null!;
-        public bool? TolocalCurrency { get; set; }
-        public bool TocurrConversion { get; set; }
-        public bool TorealCurrency { get; set; }
+        //public bool? TolocalCurrency { get; set; }
+        //public bool TocurrConversion { get; set; }
+        //public bool TorealCurrency { get; set; }
         public bool Lstatus { get; set; }
         public bool ActiveStatus { get; set; }
         public string FormId { get; set; }
@@ -39,6 +39,8 @@ namespace eSya.ConfigBusiness.DO
         public int BusinessId { get; set; }
         public int SegmentId { get; set; }
         public string CurrencyCode { get; set; }
+        public bool IsTransacting { get; set; }
+        public bool IsReal { get; set; }
         public string? CurrencyName { get; set; }
         public bool ActiveStatus { get; set; }
         public int UserID { get; set; }

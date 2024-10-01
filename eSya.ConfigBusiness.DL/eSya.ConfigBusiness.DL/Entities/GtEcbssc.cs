@@ -6,7 +6,9 @@ namespace eSya.ConfigBusiness.DL.Entities
     public partial class GtEcbssc
     {
         public int BusinessKey { get; set; }
-        public string TocurrencyCode { get; set; } = null!;
+        public string CurrencyCode { get; set; } = null!;
+        public bool IsTransacting { get; set; }
+        public bool IsReal { get; set; }
         public bool ActiveStatus { get; set; }
         public string FormId { get; set; } = null!;
         public int CreatedBy { get; set; }

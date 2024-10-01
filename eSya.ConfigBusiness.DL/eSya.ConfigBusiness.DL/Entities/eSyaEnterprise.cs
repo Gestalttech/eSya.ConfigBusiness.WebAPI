@@ -8,7 +8,6 @@ namespace eSya.ConfigBusiness.DL.Entities
     public partial class eSyaEnterprise : DbContext
     {
         public static string _connString = "";
-
         public eSyaEnterprise()
         {
         }
@@ -303,15 +302,6 @@ namespace eSya.ConfigBusiness.DL.Entities
                 entity.Property(e => e.ModifiedTerminal).HasMaxLength(50);
 
                 entity.Property(e => e.ShortDesc).HasMaxLength(15);
-
-                entity.Property(e => e.TocurrConversion).HasColumnName("TOCurrConversion");
-
-                entity.Property(e => e.TolocalCurrency)
-                    .IsRequired()
-                    .HasColumnName("TOLocalCurrency")
-                    .HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.TorealCurrency).HasColumnName("TORealCurrency");
             });
 
             modelBuilder.Entity<GtEcbsmn>(entity =>
@@ -383,15 +373,14 @@ namespace eSya.ConfigBusiness.DL.Entities
 
             modelBuilder.Entity<GtEcbssc>(entity =>
             {
-                entity.HasKey(e => new { e.BusinessKey, e.TocurrencyCode })
+                entity.HasKey(e => new { e.BusinessKey, e.CurrencyCode })
                     .HasName("PK_GT_ECBSSC_1");
 
                 entity.ToTable("GT_ECBSSC");
 
-                entity.Property(e => e.TocurrencyCode)
+                entity.Property(e => e.CurrencyCode)
                     .HasMaxLength(4)
-                    .IsUnicode(false)
-                    .HasColumnName("TOCurrencyCode");
+                    .IsUnicode(false);
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
@@ -532,6 +521,8 @@ namespace eSya.ConfigBusiness.DL.Entities
                     .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("FormID");
+
+                entity.Property(e => e.IsUt).HasColumnName("IsUT");
 
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 

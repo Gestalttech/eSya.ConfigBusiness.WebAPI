@@ -9,6 +9,7 @@ namespace eSya.ConfigBusiness.DL.Entities
         public int TaxIdentificationId { get; set; }
         public string TaxIdentificationDesc { get; set; } = null!;
         public string StateCode { get; set; } = null!;
+        public bool IsUt { get; set; }
         public bool ActiveStatus { get; set; }
         public string FormId { get; set; } = null!;
         public int CreatedBy { get; set; }

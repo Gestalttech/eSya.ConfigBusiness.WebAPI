@@ -396,9 +396,6 @@ namespace eSya.ConfigBusiness.DL.Repository
                             CityCode = x.CityCode,
                             CurrencyCode = x.CurrencyCode,
                             CurrencyName = y.CurrencyName,
-                            TolocalCurrency = x.TolocalCurrency,
-                            TocurrConversion = x.TocurrConversion,
-                            TorealCurrency = x.TorealCurrency,
                             Lstatus=x.Lstatus,
                             ActiveStatus = x.ActiveStatus
                         }).ToListAsync();
@@ -458,9 +455,6 @@ namespace eSya.ConfigBusiness.DL.Repository
                             Isdcode = obj.Isdcode,
                             CityCode = obj.CityCode,
                             CurrencyCode = obj.CurrencyCode,
-                            TolocalCurrency = obj.TolocalCurrency,
-                            TocurrConversion = obj.TocurrConversion,
-                            TorealCurrency = obj.TorealCurrency,
                             Lstatus = false,
                             ActiveStatus = obj.ActiveStatus,
                             FormId = obj.FormId,
@@ -475,52 +469,36 @@ namespace eSya.ConfigBusiness.DL.Repository
 
                         #region location currencies
 
-                        if (obj.TorealCurrency)
+                        if (obj.l_BSCurrency != null)
                         {
-                            var fa = await db.GtEcbsscs.Where(w => w.BusinessKey == Business_Key).ToListAsync();
-
-                            foreach (GtEcbssc f in fa)
+                            foreach (DO_BusienssSegmentCurrency i in obj.l_BSCurrency)
                             {
-                                f.ActiveStatus = false;
-                                f.ModifiedBy = obj.UserID;
-                                f.ModifiedOn = System.DateTime.Now;
-                                f.ModifiedTerminal = obj.TerminalID;
+                                var obj_FA = await db.GtEcbsscs.Where(w => w.BusinessKey == Business_Key && w.CurrencyCode == i.CurrencyCode).FirstOrDefaultAsync();
+                                if (obj_FA != null)
+                                {
+                                    obj_FA.IsReal = i.IsReal;
+                                    obj_FA.IsTransacting = i.IsTransacting;
+                                    obj_FA.ActiveStatus = (obj_FA.IsReal || obj_FA.IsTransacting) ? true : false;
+                                    obj_FA.ModifiedBy = obj.UserID;
+                                    obj_FA.ModifiedOn = System.DateTime.Now; ;
+                                    obj_FA.ModifiedTerminal = obj.TerminalID;
+                                }
+                                else
+                                {
+                                    obj_FA = new GtEcbssc();
+                                    obj_FA.BusinessKey = Business_Key;
+                                    obj_FA.CurrencyCode = i.CurrencyCode;
+                                    obj_FA.IsReal = i.IsReal;
+                                    obj_FA.IsTransacting = i.IsTransacting;
+                                    obj_FA.ActiveStatus = (obj_FA.IsReal || obj_FA.IsTransacting) ? true : false;
+                                    obj_FA.FormId = obj.FormId;
+                                    obj_FA.CreatedBy = obj.UserID;
+                                    obj_FA.CreatedOn = System.DateTime.Now; ;
+                                    obj_FA.CreatedTerminal = obj.TerminalID;
+                                    db.GtEcbsscs.Add(obj_FA);
+                                }
                             }
                             await db.SaveChangesAsync();
-
-                            if (obj.l_BSCurrency != null)
-                            {
-                                foreach (DO_BusienssSegmentCurrency i in obj.l_BSCurrency)
-                                {
-                                    var obj_FA = await db.GtEcbsscs.Where(w => w.BusinessKey == Business_Key && w.TocurrencyCode == i.CurrencyCode).FirstOrDefaultAsync();
-                                    if (obj_FA != null)
-                                    {
-                                        if (i.ActiveStatus)
-                                            obj_FA.ActiveStatus = true;
-                                        else
-                                            obj_FA.ActiveStatus = false;
-                                        obj_FA.ModifiedBy = obj.UserID;
-                                        obj_FA.ModifiedOn = DateTime.Now;
-                                        obj_FA.ModifiedTerminal = System.Environment.MachineName;
-                                    }
-                                    else
-                                    {
-                                        obj_FA = new GtEcbssc();
-                                        obj_FA.BusinessKey = Business_Key;
-                                        obj_FA.TocurrencyCode = i.CurrencyCode;
-                                        if (i.ActiveStatus)
-                                            obj_FA.ActiveStatus = true;
-                                        else
-                                            obj_FA.ActiveStatus = false;
-                                        obj_FA.FormId = obj.FormId;
-                                        obj_FA.CreatedBy = obj.UserID;
-                                        obj_FA.CreatedOn = DateTime.Now;
-                                        obj_FA.CreatedTerminal = System.Environment.MachineName;
-                                        db.GtEcbsscs.Add(obj_FA);
-                                    }
-                                }
-                                await db.SaveChangesAsync();
-                            }
                         }
 
                         #endregion location currencies
@@ -537,8 +515,8 @@ namespace eSya.ConfigBusiness.DL.Repository
                                     obj_FA.ParmAction = i.ParmAction;
                                     obj_FA.ActiveStatus = true;
                                     obj_FA.ModifiedBy = obj.UserID;
-                                    obj_FA.ModifiedOn = DateTime.Now;
-                                    obj_FA.ModifiedTerminal = System.Environment.MachineName;
+                                    obj_FA.ModifiedOn = System.DateTime.Now; ;
+                                    obj_FA.ModifiedTerminal = obj.TerminalID;
                                 }
                                 else
                                 {
@@ -655,9 +633,6 @@ namespace eSya.ConfigBusiness.DL.Repository
                             b_loc.Isdcode = obj.Isdcode;
                             b_loc.CityCode = obj.CityCode;
                             b_loc.CurrencyCode = obj.CurrencyCode;
-                            b_loc.TolocalCurrency = obj.TolocalCurrency;
-                            b_loc.TocurrConversion = obj.TocurrConversion;
-                            b_loc.TorealCurrency = obj.TorealCurrency;
                             b_loc.ActiveStatus = obj.ActiveStatus;
                             b_loc.ModifiedBy = obj.UserID;
                             b_loc.ModifiedOn = System.DateTime.Now;
@@ -673,48 +648,35 @@ namespace eSya.ConfigBusiness.DL.Repository
 
                         #region Location Currencies
 
-                        if (obj.TorealCurrency)
+                        if (obj.l_BSCurrency != null)
                         {
-                            if (obj.l_BSCurrency != null)
+                            foreach (DO_BusienssSegmentCurrency i in obj.l_BSCurrency)
                             {
-                                foreach (DO_BusienssSegmentCurrency i in obj.l_BSCurrency)
+                                var obj_FA = await db.GtEcbsscs.Where(w => w.BusinessKey == b_loc.BusinessKey && w.CurrencyCode == i.CurrencyCode).FirstOrDefaultAsync();
+                                if (obj_FA != null)
                                 {
-                                    var obj_FA = await db.GtEcbsscs.Where(w => w.BusinessKey == b_loc.BusinessKey && w.TocurrencyCode == i.CurrencyCode).FirstOrDefaultAsync();
-                                    if (obj_FA != null)
-                                    {
-                                        if (i.ActiveStatus)
-                                            obj_FA.ActiveStatus = true;
-                                        else
-                                            obj_FA.ActiveStatus = false;
-                                        obj_FA.ModifiedBy = obj.UserID;
-                                        obj_FA.ModifiedOn = DateTime.Now;
-                                        obj_FA.ModifiedTerminal = System.Environment.MachineName;
-                                    }
-                                    else
-                                    {
-                                        obj_FA = new GtEcbssc();
-                                        obj_FA.BusinessKey = b_loc.BusinessKey;
-                                        obj_FA.TocurrencyCode = i.CurrencyCode;
-                                        if (i.ActiveStatus)
-                                            obj_FA.ActiveStatus = true;
-                                        else
-                                            obj_FA.ActiveStatus = false;
-                                        obj_FA.FormId = obj.FormId;
-                                        obj_FA.CreatedBy = obj.UserID;
-                                        obj_FA.CreatedOn = DateTime.Now;
-                                        obj_FA.CreatedTerminal = System.Environment.MachineName;
-                                        db.GtEcbsscs.Add(obj_FA);
-                                    }
+                                    obj_FA.IsReal = i.IsReal;
+                                    obj_FA.IsTransacting = i.IsTransacting;
+                                    obj_FA.ActiveStatus = (obj_FA.IsReal || obj_FA.IsTransacting) ? true : false;
+                                    obj_FA.ModifiedBy = obj.UserID;
+                                    obj_FA.ModifiedOn = System.DateTime.Now; 
+                                    obj_FA.ModifiedTerminal = obj.TerminalID;
                                 }
-                                await db.SaveChangesAsync();
+                                else
+                                {
+                                    obj_FA = new GtEcbssc();
+                                    obj_FA.BusinessKey = b_loc.BusinessKey;
+                                    obj_FA.CurrencyCode = i.CurrencyCode;
+                                    obj_FA.IsReal = i.IsReal;
+                                    obj_FA.IsTransacting = i.IsTransacting;
+                                    obj_FA.ActiveStatus = (obj_FA.IsReal || obj_FA.IsTransacting) ? true : false;
+                                    obj_FA.FormId = obj.FormId;
+                                    obj_FA.CreatedBy = obj.UserID;
+                                    obj_FA.CreatedOn = System.DateTime.Now; 
+                                    obj_FA.CreatedTerminal = obj.TerminalID;
+                                    db.GtEcbsscs.Add(obj_FA);
+                                }
                             }
-                        }
-                        else
-                        {
-                            var bsCurrency = db.GtEcbsscs.Where(w => w.BusinessKey == b_loc.BusinessKey).ToList();
-
-                            if (bsCurrency != null)
-                                db.GtEcbsscs.RemoveRange(bsCurrency);
                             await db.SaveChangesAsync();
                         }
 
@@ -731,8 +693,8 @@ namespace eSya.ConfigBusiness.DL.Repository
                                     obj_FA.ParmAction = i.ParmAction;
                                     obj_FA.ActiveStatus = true;
                                     obj_FA.ModifiedBy = obj.UserID;
-                                    obj_FA.ModifiedOn = DateTime.Now;
-                                    obj_FA.ModifiedTerminal = System.Environment.MachineName;
+                                    obj_FA.ModifiedOn = System.DateTime.Now;
+                                    obj_FA.ModifiedTerminal = obj.TerminalID;
                                 }
                                 else
                                 {
@@ -882,15 +844,23 @@ namespace eSya.ConfigBusiness.DL.Repository
                         {
                             CurrencyCode = r.CurrencyCode,
                             CurrencyName = r.CurrencyName,
-                            ActiveStatus = false
+                            ActiveStatus = false,
+                            IsReal = false,
+                            IsTransacting=false
                         }).ToListAsync();
 
                     foreach (var obj in ds)
                     {
-                        GtEcbssc sbCurrency = db.GtEcbsscs.Where(x => x.BusinessKey == BusinessKey && x.TocurrencyCode.ToUpper().Replace(" ", "") == obj.CurrencyCode.ToUpper().Replace(" ", "")).FirstOrDefault();
+                        GtEcbssc sbCurrency = db.GtEcbsscs.Where(x => x.BusinessKey == BusinessKey && x.CurrencyCode.ToUpper().Replace(" ", "") == obj.CurrencyCode.ToUpper().Replace(" ", "")).FirstOrDefault();
                         if (sbCurrency != null)
                         {
-                            obj.ActiveStatus = sbCurrency.ActiveStatus;
+                            obj.IsReal = sbCurrency.IsReal;
+                            obj.IsTransacting=sbCurrency.IsTransacting;
+
+                            obj.ActiveStatus = (obj.IsReal || obj.IsTransacting) ? true : false;
+
+                            
+                            //obj.ActiveStatus = sbCurrency.ActiveStatus;
                         }
                         else
                         {
@@ -1291,7 +1261,8 @@ namespace eSya.ConfigBusiness.DL.Repository
         #endregion
 
         #region Payment Method Business Link
-        public async Task<List<DO_PaymentMethodBusinessLink>> GetPaymentMethodInterfacebyISDCode(int ISDCode,int BusinessKey)
+      
+        public async Task<List<DO_PaymentMethodBusinessLink>> GetPaymentMethodInterfacebyISDCode(int ISDCode, int BusinessKey)
         {
             try
             {
@@ -1313,16 +1284,15 @@ namespace eSya.ConfigBusiness.DL.Repository
                          InstrumentType = r.aa.a.InstrumentType,
                          PaymentMethodDesc = r.aa.p.CodeDesc,
                          InstrumentTypeDesc = r.I.CodeDesc,
-                         //ActiveStatus = r.aa.a.ActiveStatus,
-                         InterfaceReqd=false,
-                         ActiveStatus=false,
-                         BusinessKey=BusinessKey,
+                         InterfaceReqd = false,
+                         ActiveStatus = false,
+                         BusinessKey = BusinessKey,
                      }).ToListAsync();
 
                     foreach (var obj in ds)
                     {
-                        GtEcbspm blink = db.GtEcbspms.Where(x => x.BusinessKey == BusinessKey && x.Isdcode == ISDCode && x.PaymentMethod==obj.PaymentMethod
-                        && x.InstrumentType==obj.InstrumentType).FirstOrDefault();
+                        GtEcbspm blink = db.GtEcbspms.Where(x => x.BusinessKey == BusinessKey && x.Isdcode == ISDCode && x.PaymentMethod == obj.PaymentMethod
+                        && x.InstrumentType == obj.InstrumentType).FirstOrDefault();
                         if (blink != null)
                         {
                             obj.InterfaceReqd = blink.InterfaceReqd;
