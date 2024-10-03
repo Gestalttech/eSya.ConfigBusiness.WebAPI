@@ -33,6 +33,8 @@ namespace eSya.ConfigBusiness.DO
         public bool SMSIntegration { get; set; }
         public bool EmailIntegration { get; set; }
         public bool SecurityQuestionIntegration { get; set; }
+        public string? DateFormat { get; set; } 
+        public string? ShortDateFormat { get; set; } 
     }
     public class DO_BusienssSegmentCurrency
     {

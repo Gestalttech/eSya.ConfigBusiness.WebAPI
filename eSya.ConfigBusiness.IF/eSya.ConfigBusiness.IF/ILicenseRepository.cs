@@ -35,7 +35,7 @@ namespace eSya.ConfigBusiness.IF
         Task<List<DO_eSyaParameter>> GetLocationParametersbyBusinessKey(int BusinessKey);
 
         Task<List<DO_LocationPreferredLanguage>> GetLocationPreferredLanguagebyBusinessKey(int BusinessID, int BusinessKey);
-
+        Task<DO_BusinessLocation> GetDateFormatbyISDCode(int isdCode);
         #endregion
 
         #region Location Financial Info

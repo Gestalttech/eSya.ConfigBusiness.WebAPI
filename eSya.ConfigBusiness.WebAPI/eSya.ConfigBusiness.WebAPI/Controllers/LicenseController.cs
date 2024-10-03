@@ -113,7 +113,18 @@ namespace eSya.ConfigBusiness.WebAPI.Controllers
             var locs = await _licenseRepository.GetBusinessLocationByBusinessId(BusinessId);
             return Ok(locs);
         }
-
+        /// <summary>
+        /// Get Date Format by ISD Code
+        /// UI Reffered - Business Location By Business Id
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetDateFormatbyISDCode(int isdCode)
+        {
+            var locs = await _licenseRepository.GetDateFormatbyISDCode(isdCode);
+            return Ok(locs);
+        }
+      
         /// <summary>
         /// Insert Business Location .
         /// UI Reffered -Business Location

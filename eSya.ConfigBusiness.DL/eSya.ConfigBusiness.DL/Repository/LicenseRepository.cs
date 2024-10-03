@@ -396,6 +396,8 @@ namespace eSya.ConfigBusiness.DL.Repository
                             CityCode = x.CityCode,
                             CurrencyCode = x.CurrencyCode,
                             CurrencyName = y.CurrencyName,
+                            DateFormat=x.DateFormat,
+                            ShortDateFormat=x.ShortDateFormat,
                             Lstatus=x.Lstatus,
                             ActiveStatus = x.ActiveStatus
                         }).ToListAsync();
@@ -455,6 +457,8 @@ namespace eSya.ConfigBusiness.DL.Repository
                             Isdcode = obj.Isdcode,
                             CityCode = obj.CityCode,
                             CurrencyCode = obj.CurrencyCode,
+                            DateFormat=obj.DateFormat,
+                            ShortDateFormat=obj.ShortDateFormat,
                             Lstatus = false,
                             ActiveStatus = obj.ActiveStatus,
                             FormId = obj.FormId,
@@ -633,6 +637,8 @@ namespace eSya.ConfigBusiness.DL.Repository
                             b_loc.Isdcode = obj.Isdcode;
                             b_loc.CityCode = obj.CityCode;
                             b_loc.CurrencyCode = obj.CurrencyCode;
+                            b_loc.DateFormat = obj.DateFormat;
+                            b_loc.ShortDateFormat = obj.ShortDateFormat;
                             b_loc.ActiveStatus = obj.ActiveStatus;
                             b_loc.ModifiedBy = obj.UserID;
                             b_loc.ModifiedOn = System.DateTime.Now;
@@ -964,6 +970,29 @@ namespace eSya.ConfigBusiness.DL.Repository
             }
         }
 
+        public async Task<DO_BusinessLocation> GetDateFormatbyISDCode(int isdCode)
+        {
+            try
+            {
+                using (var db = new eSyaEnterprise())
+                {
+                    DO_BusinessLocation date = new DO_BusinessLocation();
+
+                    var dt = await db.GtEccncds.Where(x => x.Isdcode == isdCode && x.ActiveStatus).FirstOrDefaultAsync();
+                    if (dt != null)
+                    {
+                        date.DateFormat = dt.DateFormat;
+                        date.ShortDateFormat = dt.ShortDateFormat;
+                    }
+
+                    return date;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
         #region Location Financial Info
