@@ -74,6 +74,8 @@ namespace eSya.ConfigBusiness.DL.Entities
                 entity.Property(e => e.ModifiedOn).HasColumnType("datetime");
 
                 entity.Property(e => e.ModifiedTerminal).HasMaxLength(50);
+
+                entity.Property(e => e.Stdcode).HasColumnName("STDCode");
             });
 
             modelBuilder.Entity<GtEbecul>(entity =>
